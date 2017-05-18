@@ -86,13 +86,21 @@ $serverNameTextBox.text = '"' + $serverNameTextBox.text + '"'
 $serverConfigInfo = @{ServerName=$serverNameTextBox.text.ToString(); ServerPassword=$serverPasswordTextBox.text.ToString(); ServerAdminPassword=$serverPasswordAdminTextBox.text.ToString(); ServerToken=$serverTokenTextBox.text.ToString()}
 $serverConfigInfo.GetEnumerator() | Export-CSV -NoTypeInformation -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\config\serverConfigs.csv
 
+
+#Download Autologon from the Sysinternals Suite
+New-Item C:\SysInternalsSuite -ItemType directory
+Invoke-WebRequest https://download.sysinternals.com/files/AutoLogon.zip -OutFile C:\SysInternalsSuite\AutoLogon.zip
+[io.compression.zipfile]::ExtractToDirectory("C:\SysInternalsSuite\AutoLogon.zip", "C:\SysInternalsSuite")
+
+#Gotta have an account autologon because the server for The Forest DS can't seem to run as a service
+start-process C:\SysInternalsSuite\Autologon.exe
+
+#Put a batch file to initialize the server into the startup folder
+Copy-Item -Path C:\TheForestDSAdminScripts\LaunchTheForestDSAfterInitialSetup.bat -Destination "C:\Users\$env:USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\LaunchTheForestDSAfterInitialSetup.bat"
+
 #Start the server, and we're done!
 $argList = "-serverip $ipAddress -nosteamclient -serversteamport 8766 -servergameport 27015 -serverqueryport 27016 -enableVAC -servername " + $serverConfigInfo.ServerName + " -serverplayers 8 -difficulty Normal -inittype Continue -slot 1 -serverpassword " + $serverConfigInfo.ServerPassword + " -serverpassword_admin " + $serverConfigInfo.ServerAdminPassword + " -serversteamaccount " + $serverConfigInfo.ServerToken
 Start-Process C:\steamcmd\steamapps\common\TheForestDedicatedServer\TheForestDedicatedServer -ArgumentList $argList
 
 #You can use this command to stop the process if you so desire
 #Stop-Process -Name TheForestDedicatedServer
-
-#Make it so that our second script launches at server startup from henceforth
-$trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
-Register-ScheduledJob -Trigger $trigger -FilePath C:\TheForestDSAdminScripts\LaunchTheForestDSAfterInitialSetup.ps1 -Name TheForestDS
