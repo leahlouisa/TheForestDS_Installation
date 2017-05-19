@@ -5,8 +5,23 @@ Add-Type -assembly "system.io.compression.filesystem"
 [io.compression.zipfile]::ExtractToDirectory("C:\steamcmd\steamcmd.zip", "C:\steamcmd")
 
 #Now, launch SteamCMD and download The Forest Dedicated Server application
-C:\steamcmd\steamcmd.exe +login anonymous +quit
-Start-Sleep -s 10
+#C:\steamcmd\steamcmd.exe +login anonymous +quit
+#Start-Sleep -s 10
+
+$steam = Start-Process -filePath "C:\steamcmd\steamcmd.exe" -ArgumentList "+login anonymous +app_update 556450 +quit" -PassThru
+
+# keep track of steam timeout event
+$timedOut = $false 
+
+# wait up to x seconds for normal termination
+$proc | Wait-Process -Timeout 90 -ea 0 -ev timedOut
+
+if ($timedOut)
+{
+    # terminate the process
+    $steam | kill
+}
+
 C:\steamcmd\steamcmd.exe +login anonymous +app_update 556450 +quit
 
 #Open up Windows Firewall for The Forest DS
@@ -86,7 +101,7 @@ $serverNameTextBox.text = '"' + $serverNameTextBox.text + '"'
 
 #Write out to a file so that on subsequent server launches we can refer back to the file
 $serverConfigInfo = @{ServerName=$serverNameTextBox.text.ToString(); ServerPassword=$serverPasswordTextBox.text.ToString(); ServerAdminPassword=$serverPasswordAdminTextBox.text.ToString(); ServerToken=$serverTokenTextBox.text.ToString()}
-$serverConfigInfo.GetEnumerator() | Export-CSV -NoTypeInformation -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\serverConfigs.csv
+$serverConfigInfo.GetEnumerator() | Export-CSV -NoTypeInformation -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\config\serverConfigs.csv
 
 
 #Download Autologon from the Sysinternals Suite
@@ -98,7 +113,7 @@ Invoke-WebRequest https://download.sysinternals.com/files/AutoLogon.zip -OutFile
 start-process C:\SysInternalsSuite\Autologon.exe
 
 #Put a batch file to initialize the server into the startup folder
-Copy-Item -Path C:\TheForestDSAdminScripts\TheForestDS_Installation\LaunchTheForestDSAfterInitialSetup.bat -Destination "C:\Users\$env:USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\LaunchTheForestDSAfterInitialSetup.bat"
+Copy-Item -Path C:\TheForestDSAdminScripts\LaunchTheForestDSAfterInitialSetup.bat -Destination "C:\Users\$env:USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\LaunchTheForestDSAfterInitialSetup.bat"
 
 #Start the server, and we're done!
 $argList = "-serverip $ipAddress -nosteamclient -serversteamport 8766 -servergameport 27015 -serverqueryport 27016 -enableVAC -servername " + $serverConfigInfo.ServerName + " -serverplayers 8 -difficulty Normal -inittype Continue -slot 1 -serverpassword " + $serverConfigInfo.ServerPassword + " -serverpassword_admin " + $serverConfigInfo.ServerAdminPassword + " -serversteamaccount " + $serverConfigInfo.ServerToken
