@@ -5,9 +5,6 @@ Add-Type -assembly "system.io.compression.filesystem"
 [io.compression.zipfile]::ExtractToDirectory("C:\steamcmd\steamcmd.zip", "C:\steamcmd")
 
 #Now, launch SteamCMD and download The Forest Dedicated Server application
-#C:\steamcmd\steamcmd.exe +login anonymous +quit
-#Start-Sleep -s 10
-
 #For some reason it often seems to take multiple attempts to download the file from steamcmd
 $loopingVariable = $true
 
@@ -22,14 +19,12 @@ while ($loopingVariable) {
 
     if ($timedOut)
     {
-        # terminate the process
-        $steam | kill
+        # terminate the processes
+        Stop-Process -Name steamcmd -Force
         Start-Sleep -s 15
     } else { $loopingVariable = $false}
 
 }
-
-#C:\steamcmd\steamcmd.exe +login anonymous +app_update 556450 +quit
 
 #Open up Windows Firewall for The Forest DS
 New-NetFirewallRule -DisplayName "Allow The Forest DS" -Direction Inbound -Program C:\steamcmd\steamapps\common\TheForestDedicatedServer\TheForestDedicatedServer.exe -Action Allow
