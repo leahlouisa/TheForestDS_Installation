@@ -1,7 +1,7 @@
-if ((Test-Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\config\serverConfigs.csv) -and (Test-Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\TheForestDedicatedServer.exe))
+if ((Test-Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\serverConfigs.csv) -and (Test-Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\TheForestDedicatedServer.exe))
 {
     $ipAddress = (Get-NetIPAddress -AddressFamily IPv4 -Type Unicast -InterfaceAlias eth*).IPAddress.tostring()
-    $customServerConfigs = Import-CSV -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\config\serverConfigs.csv
+    $customServerConfigs = Import-CSV -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\serverConfigs.csv
     $serverName = ($customServerConfigs | where { $_.Name -eq "ServerName" }).Value
     $serverPassword = ($customServerConfigs | where { $_.Name -eq "ServerPassword" }).Value
     $serverAdminPassword = ($customServerConfigs | where { $_.Name -eq "ServerAdminPassword" }).Value
