@@ -1,14 +1,14 @@
 #First, download and unzip SteamCMD
 New-Item -Path C:\steamcmd -ItemType directory
 Invoke-WebRequest https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip -OutFile C:\steamcmd\steamcmd.zip
-Add-Type -assembly “system.io.compression.filesystem”
+Add-Type -assembly "system.io.compression.filesystem"
 [io.compression.zipfile]::ExtractToDirectory("C:\steamcmd\steamcmd.zip", "C:\steamcmd")
 
 #Now, launch SteamCMD and download The Forest Dedicated Server application
 C:\steamcmd\steamcmd.exe +login anonymous +app_update 556450 +quit
 
 #Open up Windows Firewall for The Forest DS
-New-NetFirewallRule -DisplayName “Allow The Forest DS” -Direction Inbound -Program C:\steamcmd\steamapps\common\TheForestDedicatedServer\TheForestDedicatedServer.exe -Action Allow
+New-NetFirewallRule -DisplayName "Allow The Forest DS" -Direction Inbound -Program C:\steamcmd\steamapps\common\TheForestDedicatedServer\TheForestDedicatedServer.exe -Action Allow
 
 #Figure out IP address
 $ipAddress = (Get-NetIPAddress -AddressFamily IPv4 -Type Unicast -InterfaceAlias eth*).IPAddress.tostring()
