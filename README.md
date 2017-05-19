@@ -24,7 +24,7 @@
 	New-Item -Path C:\TheForestDSAdminScripts -ItemType directory
 	cd C:\TheForestDSAdminScripts
 	Git clone https://github.com/leahlouisa/TheForestDS_Installation.git #this throws an error but works anyway
-	InitialSetupForTheForestDS.ps1
+	C:\TheForestDSAdminScripts\TheForestDS_Installation\InitialSetupForTheForestDS.ps1
     ```
 * Enter your server preferences when prompted (servername, password, etc)
 * Enter the Windows credentials for the currently logged in user when prompted inside of Autologon
