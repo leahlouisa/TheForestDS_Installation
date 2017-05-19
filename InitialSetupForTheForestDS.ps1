@@ -98,7 +98,7 @@ Invoke-WebRequest https://download.sysinternals.com/files/AutoLogon.zip -OutFile
 start-process C:\SysInternalsSuite\Autologon.exe
 
 #Put a batch file to initialize the server into the startup folder
-Copy-Item -Path C:\TheForestDSAdminScripts\LaunchTheForestDSAfterInitialSetup.bat -Destination "C:\Users\$env:USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\LaunchTheForestDSAfterInitialSetup.bat"
+Copy-Item -Path C:\TheForestDSAdminScripts\TheForestDS_Installation\LaunchTheForestDSAfterInitialSetup.bat -Destination "C:\Users\$env:USERNAME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\LaunchTheForestDSAfterInitialSetup.bat"
 
 #Start the server, and we're done!
 $argList = "-serverip $ipAddress -nosteamclient -serversteamport 8766 -servergameport 27015 -serverqueryport 27016 -enableVAC -servername " + $serverConfigInfo.ServerName + " -serverplayers 8 -difficulty Normal -inittype Continue -slot 1 -serverpassword " + $serverConfigInfo.ServerPassword + " -serverpassword_admin " + $serverConfigInfo.ServerAdminPassword + " -serversteamaccount " + $serverConfigInfo.ServerToken
