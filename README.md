@@ -26,6 +26,7 @@
 	Git clone https://github.com/leahlouisa/TheForestDS_Installation.git #this throws an error but works anyway
 	C:\TheForestDSAdminScripts\TheForestDS_Installation\InitialSetupForTheForestDS.ps1
     ```
+* Again, be patient
 * Enter your server preferences when prompted (servername, password, etc)
 * Enter the Windows credentials for the currently logged in user when prompted inside of Autologon
 	* If you are worried about doing this, feel free to research Windows Sysinternals Autologon, and read over my code to see what it is doing with your creds.  The reason the script needs them is that, try as I might, I could not get the TFDS server to function as a background process-- it has to run in the context of an interactive session.  So the server needs to be logged into at all times in order for it to function, and Autologon makes that painless.
