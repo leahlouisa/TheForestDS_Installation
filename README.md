@@ -9,7 +9,7 @@
 		* Allow RDP from only your IP
 * RDP into your new instance when it's ready
 *  While you are waiting for it to be ready, go make a steamServerAccount token and put it somewhere handy: https://steamcommunity.com/dev/managegameservers
-* Once you get in, you might want to change the Administrator password or create a different account.  How you manage your server is up to you.  Whatever you decide to do, though, know that your server will be running with that account signed in at all times once the process is complete.
+* Once you get in, you might want to change the Administrator password or create a different account.  How you manage your server is up to you.  Whatever you decide to do, though, know that your server will be running with that account signed in at all times once the process is complete.  I have only tried running this script within the context of an admin account, so I can't say whether running it in the context of a standard user causes any complications.
 * Open up Powershell, paste the following commands, and hit enter:
   ```powershell
 	register-packagesource -Name chocolatey -Provider Powershellget -Trusted -Location http://chocolatey.org/api/v2/ -Verbose
