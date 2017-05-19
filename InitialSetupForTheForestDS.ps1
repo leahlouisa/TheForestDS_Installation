@@ -86,7 +86,7 @@ $serverNameTextBox.text = '"' + $serverNameTextBox.text + '"'
 
 #Write out to a file so that on subsequent server launches we can refer back to the file
 $serverConfigInfo = @{ServerName=$serverNameTextBox.text.ToString(); ServerPassword=$serverPasswordTextBox.text.ToString(); ServerAdminPassword=$serverPasswordAdminTextBox.text.ToString(); ServerToken=$serverTokenTextBox.text.ToString()}
-$serverConfigInfo.GetEnumerator() | Export-CSV -NoTypeInformation -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\config\serverConfigs.csv
+$serverConfigInfo.GetEnumerator() | Export-CSV -NoTypeInformation -Path C:\steamcmd\steamapps\common\TheForestDedicatedServer\serverConfigs.csv
 
 
 #Download Autologon from the Sysinternals Suite
