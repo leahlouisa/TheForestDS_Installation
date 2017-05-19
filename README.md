@@ -18,7 +18,7 @@
   ```
 * Be patient-- it may take a few minutes; say yes to all the prompts
 * Install git; I didn't change any of the defaults except for selecting "Use Windows' Default Console Window"
-* In the same powershell window, paste in:
+* When Git is done installing, in the same powershell window, paste and hit enter:
   ```powershell
 	New-Alias -Name git -Value "$Env:ProgramFiles\Git\bin\git.exe"
 	New-Item -Path C:\TheForestDSAdminScripts -ItemType directory
