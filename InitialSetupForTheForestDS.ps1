@@ -24,6 +24,7 @@ while ($loopingVariable) {
     {
         # terminate the process
         $steam | kill
+        Start-Sleep -s 15
     } else { $loopingVariable = $false}
 
 }
