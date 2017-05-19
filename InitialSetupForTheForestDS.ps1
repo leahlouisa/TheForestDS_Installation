@@ -5,6 +5,8 @@ Add-Type -assembly "system.io.compression.filesystem"
 [io.compression.zipfile]::ExtractToDirectory("C:\steamcmd\steamcmd.zip", "C:\steamcmd")
 
 #Now, launch SteamCMD and download The Forest Dedicated Server application
+C:\steamcmd\steamcmd.exe +login anonymous +quit
+Start-Sleep -s 10
 C:\steamcmd\steamcmd.exe +login anonymous +app_update 556450 +quit
 
 #Open up Windows Firewall for The Forest DS
