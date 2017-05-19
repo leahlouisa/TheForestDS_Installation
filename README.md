@@ -12,19 +12,19 @@
 * Once you get in, you might want to change the Administrator password or create a different account.  How you manage your server is up to you.  Whatever you decide to do, though, know that your server will be running with that account signed in at all times once the process is complete.
 * Open up Powershell, paste the following commands, and hit enter:
   ```powershell
-		register-packagesource -Name chocolatey -Provider Powershellget -Trusted -Location http://chocolatey.org/api/v2/ -Verbose
-		Install-Package git -ProviderName chocolatey
-		start-process (Get-ChildItem C:\Chocolatey\bin -Include "*64-bit*" -Recurse)
+register-packagesource -Name chocolatey -Provider Powershellget -Trusted -Location http://chocolatey.org/api/v2/ -Verbose
+Install-Package git -ProviderName chocolatey
+start-process (Get-ChildItem C:\Chocolatey\bin -Include "*64-bit*" -Recurse)
   ```
 * Be patient-- it may take a few minutes; say yes to all the prompts
 * Install git; I didn't change any of the defaults except for selecting "Use Windows' Default Console Window"
 * In the same powershell window, paste in:
   ```powershell
-		New-Alias -Name git -Value "$Env:ProgramFiles\Git\bin\git.exe"
-		New-Item -Path C:\TheForestDSAdminScripts -ItemType directory
-		cd C:\TheForestDSAdminScripts
-		Git clone https://github.com/leahlouisa/TheForestDS_Installation.git #this throws an error but works anyway
-		InitialSetupForTheForestDS.ps1
+New-Alias -Name git -Value "$Env:ProgramFiles\Git\bin\git.exe"
+New-Item -Path C:\TheForestDSAdminScripts -ItemType directory
+cd C:\TheForestDSAdminScripts
+Git clone https://github.com/leahlouisa/TheForestDS_Installation.git #this throws an error but works anyway
+InitialSetupForTheForestDS.ps1
     ```
 * Enter your server preferences when prompted (servername, password, etc)
 * Enter the Windows credentials for the currently logged in user when prompted inside of Autologon
