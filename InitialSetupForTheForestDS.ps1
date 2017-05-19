@@ -8,7 +8,7 @@ Add-Type -assembly "system.io.compression.filesystem"
 #C:\steamcmd\steamcmd.exe +login anonymous +quit
 #Start-Sleep -s 10
 
-
+#For some reason it often seems to take multiple attempts to download the file from steamcmd
 $loopingVariable = $true
 
 while ($loopingVariable) {
