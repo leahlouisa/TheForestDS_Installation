@@ -1,7 +1,7 @@
 # TheForestDS_Installation
 * Launch an AWS instance as follows:
 	* Microsoft Windows Server 2016 Base
-	* I went with T2.Medium
+	* I went with ~~T2.Medium~~ M4.Large
 	* I went with 100GB of GP SSD storage; but it's up to you
 	* Security group:
 		* Allow TCP & UDP 27015 from anywhere
